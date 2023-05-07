@@ -1,6 +1,15 @@
 [package]
 name = "iterm2img"
 version = "0.1.0"
+description = "Rust library for iTerm2 Inline Images Protocol"
+authors = ["Kyosuke Fujimoto <kyoro.f@gmail.com>"]
+documentation = "https://docs.rs/iterm2img/"
+homepage = "https://github.com/lusingander/iterm2img"
+repository = "https://github.com/lusingander/iterm2img"
+readme = "README.md"
+license = "MIT"
+keywords = ["iterm2", "terminal", "image", "tui"]
+categories = ["graphics"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
