@@ -1,5 +1,8 @@
 # iterm2img
 
+[![Crate Status](https://img.shields.io/crates/v/iterm2img.svg)](https://crates.io/crates/iterm2img)
+[![docs.rs](https://docs.rs/iterm2img/badge.svg)](https://docs.rs/iterm2img)
+
 Rust library for iTerm2 [Inline Images Protocol](https://iterm2.com/documentation-images.html)
 
 ## Usage
