@@ -1,5 +1,24 @@
+//! Build iTerm2 [Inline Images Protocol](https://iterm2.com/documentation-images.html) string
+//!
+//! # Examples
+//!
+//! ```
+//! let bytes = "abcdefg".as_bytes().to_vec();
+//! let result = iterm2img::from_bytes(bytes)
+//!     .name("xyz".to_string())
+//!     .width(100)
+//!     .height(200)
+//!     .preserve_aspect_ratio(false)
+//!     .inline(true)
+//!     .build();
+//!
+//! let expected =  "\x1b]1337;File=size=7;name=xyz;width=100;height=200;preserve_aspect_ratio=0;inline=1:YWJjZGVmZw==\u{0007}";
+//! assert_eq!(result, expected);
+//! ```
+
 use base64::Engine;
 
+/// builder
 pub struct Builder {
     bytes: Vec<u8>,
     name: Option<String>,
@@ -16,6 +35,7 @@ enum LengthUnit {
     Auto,
 }
 
+/// returns builder from bytes
 pub fn from_bytes(bytes: Vec<u8>) -> Builder {
     Builder {
         bytes,
@@ -28,61 +48,73 @@ pub fn from_bytes(bytes: Vec<u8>) -> Builder {
 }
 
 impl Builder {
+    /// set filename
     pub fn name(mut self, v: String) -> Builder {
         self.name = Some(v);
         self
     }
 
+    /// set width cells
     pub fn width(mut self, v: u64) -> Builder {
         self.width = Some(LengthUnit::Cell(v));
         self
     }
 
+    /// set width pixels
     pub fn width_px(mut self, v: u64) -> Builder {
         self.width = Some(LengthUnit::Pixel(v));
         self
     }
 
+    /// set width percent
     pub fn width_percent(mut self, v: u64) -> Builder {
         self.width = Some(LengthUnit::Percent(v));
         self
     }
 
+    /// set width auto
     pub fn width_auto(mut self) -> Builder {
         self.width = Some(LengthUnit::Auto);
         self
     }
 
+    /// set height cells
     pub fn height(mut self, v: u64) -> Builder {
         self.height = Some(LengthUnit::Cell(v));
         self
     }
 
+    /// set height pixels
     pub fn height_px(mut self, v: u64) -> Builder {
         self.height = Some(LengthUnit::Pixel(v));
         self
     }
 
+    /// set height percent
     pub fn height_percent(mut self, v: u64) -> Builder {
         self.height = Some(LengthUnit::Percent(v));
         self
     }
 
+    /// set height auto
     pub fn height_auto(mut self) -> Builder {
         self.height = Some(LengthUnit::Auto);
         self
     }
 
+    /// set preserve_aspect_ratio
     pub fn preserve_aspect_ratio(mut self, v: bool) -> Builder {
         self.preserve_aspect_ratio = Some(v);
         self
     }
 
+    /// set inline
     pub fn inline(mut self, v: bool) -> Builder {
         self.inline = Some(v);
         self
     }
 
+    /// build string
     pub fn build(self) -> String {
         let mut s = String::new();
 
